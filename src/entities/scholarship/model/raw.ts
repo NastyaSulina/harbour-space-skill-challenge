@@ -22,6 +22,5 @@ export interface LocationRaw {
 
 export interface CompanyRaw {
     name: string
-    logo_light: { src: string }
     logo_dark: { src: string }
 }
