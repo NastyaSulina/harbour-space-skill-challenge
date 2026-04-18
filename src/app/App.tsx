@@ -1,7 +1,7 @@
 /* eslint-disable react-x/no-array-index-key */
 import { LoadStatus, useScholarship } from '@entities/scholarship'
 
-export const App = () => {
+const App = () => {
     const { status, data } = useScholarship('data-science-apprenticeship-zeptolab')
 
     return (
