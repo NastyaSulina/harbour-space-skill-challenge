@@ -25,6 +25,5 @@ export interface Scholarship {
 
 export interface Company {
     name: string
-    logoLightSrc: string
     logoDarkSrc: string
 }
