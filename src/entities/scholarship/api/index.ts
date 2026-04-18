@@ -1,0 +1,1 @@
+export { ScholarshipService } from './scholarshipService'
