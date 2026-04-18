@@ -1,0 +1,78 @@
+.root {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 48px;
+    height: 48px;
+
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    background: transparent;
+
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease;
+
+    &:hover {
+        color: var(--color-primary);
+        border-color: var(--color-primary);
+    }
+}
+
+.expanded {
+    color: var(--color-bg);
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+
+    &:hover {
+        border-color: var(--color-primary-hover);
+        background: var(--color-primary-hover);
+    }
+}
+
+.icon {
+    position: relative;
+
+    width: 10px;
+    height: 10px;
+
+    transition: transform 0.3s ease;
+}
+
+.icon::before,
+.icon::after {
+    position: absolute;
+
+    content: '';
+
+    background: currentcolor;
+
+    transition: transform 0.3s ease;
+}
+
+.icon::before {
+    top: 50%;
+    left: 0;
+
+    width: 100%;
+    height: 1.5px;
+
+    transform: translateY(-50%);
+}
+
+.icon::after {
+    top: 0;
+    left: 50%;
+
+    width: 1.5px;
+    height: 100%;
+
+    transform: translateX(-50%);
+}
+
+.expanded .icon::after {
+    transform: translateX(-50%) scaleY(0);
+}
