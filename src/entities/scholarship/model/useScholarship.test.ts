@@ -3,7 +3,8 @@ import { renderHook, waitFor } from '@testing-library/react'
 import { useScholarship } from './useScholarship'
 import { LoadStatus } from './types'
 
-import { makeScholarshipPage } from '../__testing__'
+import { normalizeScholarshipPage } from '../api/normalize'
+import { makeScholarshipPageRaw } from '../__testing__'
 
 const { getPageMock } = vi.hoisted(() => ({
     getPageMock: vi.fn(),
@@ -21,7 +22,7 @@ describe('useScholarship', () => {
     })
 
     it('transitions to Success on successful fetch', async () => {
-        const page = makeScholarshipPage()
+        const page = normalizeScholarshipPage(makeScholarshipPageRaw())
         getPageMock.mockResolvedValue(page)
 
         const { result } = renderHook(() => useScholarship('some-slug'))
@@ -49,7 +50,7 @@ describe('useScholarship', () => {
     })
 
     it('calls service with given slug', async () => {
-        getPageMock.mockResolvedValue(makeScholarshipPage())
+        getPageMock.mockResolvedValue(normalizeScholarshipPage(makeScholarshipPageRaw()))
 
         renderHook(() => useScholarship('some-slug'))
 

@@ -1,1 +1,1 @@
-export { makeScholarshipPage } from './scholarship.factory'
+export { makeScholarshipPageRaw } from './scholarship.factory'
