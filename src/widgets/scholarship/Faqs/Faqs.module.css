@@ -153,15 +153,12 @@
     }
 
     .title {
-        font-size: 32px;
         line-height: 40px;
     }
 
     .select {
         width: 100%;
         min-width: 0;
-
-        font-size: 16px;
     }
 
     .item {
@@ -178,7 +175,5 @@
 
     .answer {
         grid-column: 1 / 2;
-
-        font-size: 16px;
     }
 }

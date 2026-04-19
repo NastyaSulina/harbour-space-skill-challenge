@@ -5,24 +5,29 @@ import styles from './Hero.module.css'
 import type { Scholarship } from '@entities/scholarship'
 
 import { Button, TextBlock } from '@shared/ui'
+import { formatDate } from '@shared/lib'
 
 interface HeroProps {
-    scholarship: Scholarship
+    name: Scholarship['name']
+    description: Scholarship['description']
+    position: Scholarship['position']
+    company: Scholarship['company']
+    location: Scholarship['location']
+    duration: Scholarship['duration']
+    startDate: Scholarship['startDate']
     onApply?: () => void
 }
 
-export const Hero: React.FC<HeroProps> = ({ scholarship, onApply }) => {
-    const {
-        name,
-        description,
-        position,
-        company,
-        location,
-        duration,
-        startDate,
-        applicationEndDate,
-    } = scholarship
-
+export const Hero: React.FC<HeroProps> = ({
+    name,
+    description,
+    position,
+    company,
+    location,
+    duration,
+    startDate,
+    onApply,
+}) => {
     return (
         <section className={styles.root}>
             <div className={styles.container}>
@@ -50,7 +55,7 @@ export const Hero: React.FC<HeroProps> = ({ scholarship, onApply }) => {
                     <div className={styles.companyLogo}>
                         <img src={company.logoSrc} alt={company.name} />
                         <p className={styles.companyName}>
-                            <p>Powered by:</p>
+                            <span>Powered by:</span>
                             {company.name}
                         </p>
                     </div>
@@ -70,11 +75,17 @@ export const Hero: React.FC<HeroProps> = ({ scholarship, onApply }) => {
                         <div className={styles.infoRow}>
                             <p className={styles.infoItem}>
                                 <strong>Start date</strong>
-                                {startDate.toLocaleDateString()}
+                                {formatDate(startDate)}
                             </p>
                             <p className={styles.infoItem}>
                                 <strong>End date</strong>
-                                {applicationEndDate.toLocaleDateString()}
+                                {formatDate(
+                                    new Date(
+                                        startDate.getFullYear() + duration,
+                                        startDate.getMonth(),
+                                        startDate.getDate(),
+                                    ),
+                                )}
                             </p>
                         </div>
                     </div>
