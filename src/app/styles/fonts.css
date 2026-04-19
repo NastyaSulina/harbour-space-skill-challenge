@@ -33,21 +33,3 @@
     font-style: italic;
     font-display: swap;
 }
-
-@font-face {
-    font-family: 'Apercu Pro';
-    src: url('/fonts/apercu/apercu_bold_pro.otf') format('opentype');
-
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Apercu Pro';
-    src: url('/fonts/apercu/apercu_bold_italic_pro.otf') format('opentype');
-
-    font-weight: 700;
-    font-style: italic;
-    font-display: swap;
-}
