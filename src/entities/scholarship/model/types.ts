@@ -11,6 +11,17 @@ export interface ScholarshipPage {
     scholarship: Scholarship
 }
 
+export interface FaqItem {
+    category: string
+    question: string
+    answer: TextBlockType[]
+}
+
+export interface Faqs {
+    items: FaqItem[]
+    categories: string[]
+}
+
 export interface Scholarship {
     id: number
     name: string
@@ -21,6 +32,7 @@ export interface Scholarship {
     startDate: Date
     applicationEndDate: Date
     company: Company
+    faqs: Faqs
 }
 
 export interface Company {
