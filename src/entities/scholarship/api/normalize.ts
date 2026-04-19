@@ -18,6 +18,14 @@ export const normalizeScholarshipPage = (raw: ScholarshipPageRaw): ScholarshipPa
                 name: scholarship.company.name,
                 logoSrc: scholarship.company.logo_dark.src,
             },
+            faqs: {
+                categories: raw.scholarship.faqs.categories,
+                items: raw.scholarship.faqs.items.map((item) => ({
+                    category: item.type,
+                    question: item.question,
+                    answer: item.answer,
+                })),
+            },
         },
     }
 }

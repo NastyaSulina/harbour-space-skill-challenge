@@ -1,4 +1,4 @@
-import { Hero } from '@widgets/scholarship'
+import { Faqs, Hero } from '@widgets/scholarship'
 
 import { LoadStatus, useScholarship } from '@entities/scholarship'
 
@@ -9,7 +9,10 @@ const App = () => {
     return (
         <main>
             {status === LoadStatus.Success && scholarship && (
-                <Hero scholarship={scholarship}></Hero>
+                <>
+                    <Hero scholarship={scholarship}></Hero>
+                    <Faqs faqs={scholarship.faqs}></Faqs>
+                </>
             )}
         </main>
     )
