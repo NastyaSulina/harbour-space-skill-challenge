@@ -56,4 +56,49 @@ describe('normalize', () => {
         expect(result.scholarship.duration).toBe(1)
         expect(result.scholarship.position).toBe('Game Analyst Intern')
     })
+
+    it('maps faq items from raw type/question/answer to category/question/answer', () => {
+        const raw = makeScholarshipPageRaw({
+            faqs: {
+                categories: ['Program conditions'],
+                items: [
+                    {
+                        type: 'Program conditions',
+                        question: 'Do I need a visa?',
+                        answer: [{ type: 'paragraph', data: 'No.' }],
+                    },
+                ],
+            },
+        })
+
+        const result = normalizeScholarshipPage(raw)
+
+        expect(result.scholarship.faqs.items[0]).toEqual({
+            category: 'Program conditions',
+            question: 'Do I need a visa?',
+            answer: [{ type: 'paragraph', data: 'No.' }],
+        })
+    })
+
+    it('preserves faq categories as is', () => {
+        const raw = makeScholarshipPageRaw()
+
+        const result = normalizeScholarshipPage(raw)
+
+        expect(result.scholarship.faqs.categories).toEqual(raw.scholarship.faqs.categories)
+    })
+
+    it('maps all faq items', () => {
+        const raw = makeScholarshipPageRaw()
+
+        const result = normalizeScholarshipPage(raw)
+
+        const expectedItems = raw.scholarship.faqs.items.map((item) => ({
+            category: item.type,
+            question: item.question,
+            answer: item.answer,
+        }))
+
+        expect(result.scholarship.faqs.items).toEqual(expectedItems)
+    })
 })
