@@ -55,12 +55,6 @@ export const Hero: React.FC<HeroProps> = ({ scholarship, onApply }) => {
                         </p>
                     </div>
 
-                    {/* TODO: implement timer */}
-                    <div className={styles.timerPlaceholder}>
-                        <p className={styles.timerLabel}>Application closes in</p>
-                        <p className={styles.timerValue}>6 Day : 22 Hrs : 56 Min : 13 Seg</p>
-                    </div>
-
                     <div className={styles.infoCard}>
                         <div className={styles.infoRow}>
                             <p className={styles.infoItem}>
