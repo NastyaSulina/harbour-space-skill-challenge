@@ -1,30 +1,32 @@
 import { faker } from '@faker-js/faker'
 
-import type { Company, Scholarship, ScholarshipPage, TextBlock } from '../model/types'
+import type { ScholarshipPageRaw, ScholarshipRaw } from '../model/raw'
+import type { TextBlockType } from '../model/types'
 
-const makeTextBlock = (): TextBlock =>
+const makeTextBlock = (): TextBlockType =>
     ({
         type: 'paragraph',
         data: faker.lorem.paragraph(),
-    }) as TextBlock
+    }) as TextBlockType
 
-const makeCompany = (): Company => ({
-    name: faker.company.name(),
-    logoDarkSrc: faker.image.url(),
-})
-
-const makeScholarship = (): Scholarship => ({
+const makeScholarshipRaw = (overrides?: Partial<ScholarshipRaw>): ScholarshipRaw => ({
     id: faker.number.int({ min: 1, max: 1000 }),
     name: faker.lorem.words(3),
     description: [makeTextBlock()],
     position: faker.person.jobTitle(),
     duration: faker.number.int({ min: 1, max: 2 }),
-    location: faker.location.city(),
-    startDate: faker.date.future(),
-    applicationEndDate: faker.date.soon(),
-    company: makeCompany(),
+    location: { name: faker.location.city() },
+    scholarship_start_date: faker.date.future().toISOString(),
+    application_end_date: faker.date.soon().toISOString(),
+    company: {
+        name: faker.company.name(),
+        logo_dark: { src: faker.image.url() },
+    },
+    ...overrides,
 })
 
-export const makeScholarshipPage = (): ScholarshipPage => ({
-    scholarship: makeScholarship(),
+export const makeScholarshipPageRaw = (
+    overrides?: Partial<ScholarshipRaw>,
+): ScholarshipPageRaw => ({
+    scholarship: makeScholarshipRaw(overrides),
 })
