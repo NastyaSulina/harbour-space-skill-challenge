@@ -1,4 +1,4 @@
-import type { TextBlock } from './types'
+import type { TextBlockType } from './types'
 
 export interface ScholarshipPageRaw {
     scholarship: ScholarshipRaw
@@ -7,7 +7,7 @@ export interface ScholarshipPageRaw {
 export interface ScholarshipRaw {
     id: number
     name: string
-    description: TextBlock[]
+    description: TextBlockType[]
     position: string
     duration: number
     location: LocationRaw
