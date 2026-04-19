@@ -1,17 +1,17 @@
 .root {
-    width: 100%;
-    padding: 80px 0 0 40px;
+    padding: 80px var(--space-4) 0;
 
-    background: var(--color-bg);
+    background:
+        url('./_assets/bg.png') bottom right / auto no-repeat,
+        var(--color-bg);
 }
 
 .container {
     display: grid;
-    gap: var(--space-20);
+    gap: var(--space-6);
     grid-template-columns: 1fr 480px;
 
-    width: 100%;
-    max-width: 1080px;
+    max-width: 1040px;
     margin: 0 auto;
 }
 
@@ -53,7 +53,7 @@
     flex-direction: column;
     gap: var(--space-6);
 
-    max-width: 500px;
+    max-width: 430px;
     margin-bottom: var(--space-12);
 }
 
@@ -115,7 +115,9 @@
     color: var(--color-text);
 }
 
-.companyName p {
+.companyName span {
+    display: block;
+
     font-size: 18px;
 }
 
@@ -174,17 +176,16 @@
     .title {
         margin-bottom: var(--space-5);
 
-        font-size: 32px;
         line-height: 1.2;
     }
 
     .subtitle {
+        max-width: fit-content;
         margin-bottom: var(--space-6);
-
-        font-size: 18px;
     }
 
     .description {
+        max-width: fit-content;
         margin-bottom: var(--space-8);
     }
 

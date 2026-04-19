@@ -23,10 +23,12 @@ const FaqsItem: FC<FaqItemProps> = ({ item }) => {
 
     return (
         <li className={styles.item}>
-            <button
-                type='button'
+            <div
                 className={styles.itemHeader}
                 onClick={handleToggle}
+                role='button'
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && handleToggle()}
                 aria-expanded={isExpanded}
             >
                 <span className={styles.category}>{item.category}</span>
@@ -39,7 +41,7 @@ const FaqsItem: FC<FaqItemProps> = ({ item }) => {
                         handleToggle()
                     }}
                 />
-            </button>
+            </div>
 
             {isExpanded && (
                 <div className={styles.answer}>
