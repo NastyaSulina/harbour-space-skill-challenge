@@ -1,6 +1,11 @@
 import { faker } from '@faker-js/faker'
 
-import type { FaqsRaw, ScholarshipPageRaw, ScholarshipRaw, WhatYouWillLearnRaw } from '../model/raw'
+import type {
+    FaqsRaw,
+    ScholarshipPageRaw,
+    ScholarshipRaw,
+    WhatYouWillLearnRaw,
+} from '../model/scheme'
 import type { TextBlockType } from '../model/types'
 
 const FAQ_CATEGORIES = ['Application process', 'Program conditions', 'Apprenticeship conditions']
