@@ -1,12 +1,12 @@
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, useRef, useEffect } from 'react'
 
 import styles from './Faqs.module.css'
 
 import type { Faqs as FaqsType, FaqItem } from '@entities/scholarship'
 
-import { IconButton, TextBlock } from '@shared/ui'
+import { IconButton, Select, TextBlock } from '@shared/ui'
 
-import type { FC, ChangeEvent } from 'react'
+import type { FC } from 'react'
 
 interface FaqItemProps {
     item: FaqItem
@@ -16,10 +16,21 @@ const ALL_CATEGORIES = 'All'
 
 const FaqsItem: FC<FaqItemProps> = ({ item }) => {
     const [isExpanded, setIsExpanded] = useState(false)
+    const [maxHeight, setMaxHeight] = useState('0')
+
+    const contentRef = useRef<HTMLDivElement>(null)
 
     const handleToggle = useCallback(() => {
         setIsExpanded((prev) => !prev)
     }, [])
+
+    useEffect(() => {
+        if (isExpanded && contentRef.current) {
+            setMaxHeight(`${contentRef.current.scrollHeight}px`)
+        } else {
+            setMaxHeight('0')
+        }
+    }, [isExpanded])
 
     return (
         <li className={styles.item}>
@@ -43,15 +54,14 @@ const FaqsItem: FC<FaqItemProps> = ({ item }) => {
                 />
             </div>
 
-            {isExpanded && (
+            <div ref={contentRef} className={styles.answerWrapper} style={{ maxHeight }}>
                 <div className={styles.answer}>
                     <TextBlock blocks={item.answer} />
                 </div>
-            )}
+            </div>
         </li>
     )
 }
-
 interface FaqsProps {
     faqs: FaqsType
 }
@@ -67,9 +77,11 @@ export const Faqs: FC<FaqsProps> = ({ faqs }) => {
         return faqs.items.filter((item) => item.category === selectedCategory)
     }, [faqs.items, selectedCategory])
 
-    const handleCategoryChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-        setSelectedCategory(e.target.value)
+    const handleCategoryChange = useCallback((value: string) => {
+        setSelectedCategory(value)
     }, [])
+
+    const categoryOptions = useMemo(() => [ALL_CATEGORIES, ...faqs.categories], [faqs.categories])
 
     return (
         <section className={styles.root}>
@@ -79,19 +91,11 @@ export const Faqs: FC<FaqsProps> = ({ faqs }) => {
 
                     <div className={styles.filter}>
                         <span className={styles.filterLabel}>Filter by:</span>
-                        <select
-                            className={styles.select}
-                            value={selectedCategory}
+                        <Select
+                            options={categoryOptions}
+                            selected={selectedCategory}
                             onChange={handleCategoryChange}
-                        >
-                            <option value={ALL_CATEGORIES}>All</option>
-
-                            {faqs.categories.map((category) => (
-                                <option key={category} value={category}>
-                                    {category}
-                                </option>
-                            ))}
-                        </select>
+                        />
                     </div>
                 </div>
 
