@@ -20,21 +20,17 @@ export const ScholarshipPage: FC<ScholarshipPageProps> = ({ slug }) => {
         console.log('Apply')
     }, [])
 
-    if (status === LoadStatus.Initial || status === LoadStatus.Loading) {
-        return (
-            <main className={styles.page}>
-                <header className={styles.header}>Harbour.space</header>
+    const renderContent = () => {
+        if (status === LoadStatus.Initial || status === LoadStatus.Loading) {
+            return (
                 <section className={styles.centeredSection}>
                     <div className={styles.loader} aria-label='Loading' />
                 </section>
-            </main>
-        )
-    }
+            )
+        }
 
-    if (status === LoadStatus.Error || !scholarship) {
-        return (
-            <main className={styles.page}>
-                <header className={styles.header}>Harbour.space</header>
+        if (status === LoadStatus.Error || !scholarship) {
+            return (
                 <section className={styles.centeredSection}>
                     <div className={styles.errorBlock}>
                         <h1 className={styles.errorTitle}>Something went wrong</h1>
@@ -43,28 +39,33 @@ export const ScholarshipPage: FC<ScholarshipPageProps> = ({ slug }) => {
                         </p>
                     </div>
                 </section>
-            </main>
+            )
+        }
+
+        return (
+            <>
+                <Hero
+                    name={scholarship.name}
+                    description={scholarship.description}
+                    position={scholarship.position}
+                    company={scholarship.company}
+                    location={scholarship.location}
+                    duration={scholarship.duration}
+                    startDate={scholarship.startDate}
+                    onApply={onApply}
+                />
+
+                <Slider items={scholarship.whatYouWillLearn} title='What you will learn' />
+
+                <Faqs faqs={scholarship.faqs} />
+            </>
         )
     }
 
     return (
         <main className={styles.page}>
-            <header className={styles.header}>Harbour.space</header>
-
-            <Hero
-                name={scholarship.name}
-                description={scholarship.description}
-                position={scholarship.position}
-                company={scholarship.company}
-                location={scholarship.location}
-                duration={scholarship.duration}
-                startDate={scholarship.startDate}
-                onApply={onApply}
-            />
-
-            <Slider items={scholarship.whatYouWillLearn} title='What you will learn' />
-
-            <Faqs faqs={scholarship.faqs} />
+            <header className={styles.header}>Harbour.Space</header>
+            {renderContent()}
         </main>
     )
 }
