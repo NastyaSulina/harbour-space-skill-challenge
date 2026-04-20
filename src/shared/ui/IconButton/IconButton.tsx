@@ -31,6 +31,7 @@ export const IconButton = memo(
                 aria-label={ariaLabel}
                 aria-expanded={isExpanded}
             >
+                <span className={styles.bg} aria-hidden='true' />
                 <span className={styles.icon} aria-hidden='true' />
             </button>
         )
