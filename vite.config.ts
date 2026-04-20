@@ -5,6 +5,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 export default defineConfig({
     plugins: [react(), tsconfigPaths()],
     server: {
+        // For local development
         proxy: {
             '/api': {
                 target: 'https://harbour.space',
