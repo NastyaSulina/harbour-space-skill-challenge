@@ -21,6 +21,16 @@ describe('useScholarship', () => {
         getPageMock.mockReset()
     })
 
+    it('transitions to Loading state after mount', async () => {
+        getPageMock.mockImplementation(() => new Promise(() => {}))
+
+        const { result } = renderHook(() => useScholarship('some-slug'))
+
+        await waitFor(() => {
+            expect(result.current.status).toBe(LoadStatus.Loading)
+        })
+    })
+
     it('transitions to Success on successful fetch', async () => {
         const page = normalizeScholarshipPage(makeScholarshipPageRaw())
         getPageMock.mockResolvedValue(page)
@@ -60,6 +70,15 @@ describe('useScholarship', () => {
     })
 
     it('aborts pending request on unmount', async () => {
-        /* TODO: aborts pending request on unmount */
+        const { unmount } = renderHook(() => useScholarship('some-slug'))
+
+        await waitFor(() => {
+            expect(getPageMock).toHaveBeenCalled()
+        })
+
+        const signal = getPageMock.mock.calls[0]![1] as AbortSignal
+        unmount()
+
+        expect(signal.aborted).toBe(true)
     })
 })
