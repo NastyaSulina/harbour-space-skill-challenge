@@ -4,6 +4,26 @@
     background: var(--color-bg);
 }
 
+.header {
+    position: fixed;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: 100%;
+    height: 70px;
+    padding: 0 var(--space-12);
+
+    text-transform: uppercase;
+
+    font-size: 24px;
+    font-weight: var(--font-weight-medium);
+
+    color: #fff;
+    background: var(--color-primary);
+}
+
 .centeredSection {
     display: flex;
     justify-content: center;
@@ -56,6 +76,11 @@
 }
 
 @media (width <= 768px) {
+    .header {
+        height: 50px;
+        padding: 0 var(--space-5);
+    }
+
     .loader {
         width: 56px;
         height: 56px;

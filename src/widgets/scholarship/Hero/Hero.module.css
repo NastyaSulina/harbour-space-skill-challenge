@@ -1,5 +1,5 @@
 .root {
-    padding: 80px var(--space-4) 0;
+    padding: 130px var(--space-4) var(--space-5);
 
     background:
         url('./_assets/bg.png') bottom right / auto no-repeat,
@@ -160,7 +160,7 @@
 
 @media (width <= 768px) {
     .root {
-        padding: var(--space-12) var(--space-5);
+        padding: 100px var(--space-5);
     }
 
     .container {

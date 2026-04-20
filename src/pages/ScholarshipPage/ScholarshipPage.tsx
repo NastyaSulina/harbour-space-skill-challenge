@@ -23,6 +23,7 @@ export const ScholarshipPage: FC<ScholarshipPageProps> = ({ slug }) => {
     if (status === LoadStatus.Initial || status === LoadStatus.Loading) {
         return (
             <main className={styles.page}>
+                <header className={styles.header}>Harbour.space</header>
                 <section className={styles.centeredSection}>
                     <div className={styles.loader} aria-label='Loading' />
                 </section>
@@ -33,6 +34,7 @@ export const ScholarshipPage: FC<ScholarshipPageProps> = ({ slug }) => {
     if (status === LoadStatus.Error || !scholarship) {
         return (
             <main className={styles.page}>
+                <header className={styles.header}>Harbour.space</header>
                 <section className={styles.centeredSection}>
                     <div className={styles.errorBlock}>
                         <h1 className={styles.errorTitle}>Something went wrong</h1>
@@ -47,6 +49,8 @@ export const ScholarshipPage: FC<ScholarshipPageProps> = ({ slug }) => {
 
     return (
         <main className={styles.page}>
+            <header className={styles.header}>Harbour.space</header>
+
             <Hero
                 name={scholarship.name}
                 description={scholarship.description}
