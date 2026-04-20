@@ -1,0 +1,165 @@
+.root {
+    width: 100%;
+    padding: 56px 0 40px;
+}
+
+.heading {
+    margin: 0 0 32px;
+    padding: 0 40px;
+
+    font-size: 40px;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.05;
+
+    color: var(--color-primary);
+}
+
+.trackWrap {
+    width: 100%;
+}
+
+.track {
+    display: flex;
+    overflow-x: auto;
+    align-items: stretch;
+    gap: 24px;
+
+    padding: 0 40px;
+    scroll-padding-inline: 40px;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+    display: none;
+}
+
+.slideWrap {
+    display: flex;
+    flex: 0 0 320px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+}
+
+.slide {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 100%;
+    min-height: 220px;
+    padding: 24px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+}
+
+.slideDescription {
+    margin: 0 0 24px;
+
+    font-size: 18px;
+    line-height: 1.6;
+
+    color: var(--color-text);
+}
+
+.slideTitle {
+    text-align: center;
+
+    font-size: 13px;
+    font-weight: var(--font-weight-medium);
+    line-height: 1.4;
+
+    color: var(--color-primary);
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+
+    margin-top: 24px;
+}
+
+.navButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 40px;
+    height: 40px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    color: var(--color-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    background: var(--color-bg);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.navButton:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.35;
+}
+
+.navButton:hover:not(:disabled) {
+    color: var(--color-bg);
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+}
+
+@media (width <= 768px) {
+    .root {
+        padding: 40px 0 32px;
+    }
+
+    .heading {
+        margin-bottom: 24px;
+        padding: 0 16px;
+
+        line-height: 1.1;
+    }
+
+    .track {
+        gap: 16px;
+
+        padding: 0 16px;
+        scroll-padding-inline: 16px;
+    }
+
+    .slideWrap {
+        flex: 0 0 280px;
+    }
+
+    .slide {
+        min-height: 180px;
+        padding: 20px;
+    }
+
+    .slideDescription {
+        margin-bottom: 20px;
+
+        line-height: 1.5;
+    }
+
+    .navigation {
+        margin-top: 20px;
+    }
+
+    .navButton {
+        width: 36px;
+        height: 36px;
+    }
+}
