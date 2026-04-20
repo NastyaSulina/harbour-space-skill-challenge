@@ -15,6 +15,11 @@ export interface FaqsRaw {
     categories: string[]
 }
 
+export interface WhatYouWillLearnRaw {
+    title: string
+    data: string
+}
+
 export interface ScholarshipRaw {
     id: number
     name: string
@@ -26,6 +31,7 @@ export interface ScholarshipRaw {
     application_end_date: string
     company: CompanyRaw
     faqs: FaqsRaw
+    what_you_will_learn: WhatYouWillLearnRaw[]
 }
 
 export interface LocationRaw {

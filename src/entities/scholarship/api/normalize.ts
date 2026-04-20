@@ -26,6 +26,11 @@ export const normalizeScholarshipPage = (raw: ScholarshipPageRaw): ScholarshipPa
                     answer: item.answer,
                 })),
             },
+            whatYouWillLearn: scholarship.what_you_will_learn.map((item, index) => ({
+                id: String(index),
+                title: item.title,
+                description: item.data,
+            })),
         },
     }
 }

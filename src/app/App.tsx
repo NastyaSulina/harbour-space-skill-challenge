@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { Faqs, Hero } from '@widgets/scholarship'
+import { Faqs, Hero, Slider } from '@widgets/scholarship'
 
 import { LoadStatus, useScholarship } from '@entities/scholarship'
 
@@ -26,6 +26,7 @@ const App = () => {
                         startDate={scholarship.startDate}
                         onApply={onApply}
                     />
+                    <Slider items={scholarship.whatYouWillLearn} title='What you will learn' />
                     <Faqs faqs={scholarship.faqs} />
                 </>
             )}

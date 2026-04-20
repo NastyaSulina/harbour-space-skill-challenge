@@ -22,6 +22,12 @@ export interface Faqs {
     categories: string[]
 }
 
+export interface LearnItem {
+    id: string
+    title: string
+    description: string
+}
+
 export interface Scholarship {
     id: number
     name: string
@@ -33,6 +39,7 @@ export interface Scholarship {
     applicationEndDate: Date
     company: Company
     faqs: Faqs
+    whatYouWillLearn: LearnItem[]
 }
 
 export interface Company {
