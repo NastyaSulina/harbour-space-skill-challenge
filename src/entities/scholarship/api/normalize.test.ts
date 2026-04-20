@@ -101,4 +101,18 @@ describe('normalize', () => {
 
         expect(result.scholarship.faqs.items).toEqual(expectedItems)
     })
+
+    it('maps "What you will learn" items from raw title/data to title/description with id', () => {
+        const raw = makeScholarshipPageRaw()
+
+        const result = normalizeScholarshipPage(raw)
+
+        const expectedItems = raw.scholarship.what_you_will_learn.map((item, index) => ({
+            id: String(index),
+            title: item.title,
+            description: item.data,
+        }))
+
+        expect(result.scholarship.whatYouWillLearn).toEqual(expectedItems)
+    })
 })

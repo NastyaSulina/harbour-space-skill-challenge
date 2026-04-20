@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 
-import type { FaqsRaw, ScholarshipPageRaw, ScholarshipRaw } from '../model/raw'
+import type { FaqsRaw, ScholarshipPageRaw, ScholarshipRaw, WhatYouWillLearnRaw } from '../model/raw'
 import type { TextBlockType } from '../model/types'
 
 const FAQ_CATEGORIES = ['Application process', 'Program conditions', 'Apprenticeship conditions']
@@ -23,6 +23,15 @@ const makeFaqs = (): FaqsRaw => ({
     ),
 })
 
+const makeWhatYouWillLearn = (): WhatYouWillLearnRaw[] =>
+    faker.helpers.multiple(
+        () => ({
+            title: faker.lorem.word(),
+            data: faker.lorem.sentence(),
+        }),
+        { count: 3 },
+    )
+
 const makeScholarshipRaw = (overrides?: Partial<ScholarshipRaw>): ScholarshipRaw => ({
     id: faker.number.int({ min: 1, max: 1000 }),
     name: faker.lorem.words(3),
@@ -37,6 +46,7 @@ const makeScholarshipRaw = (overrides?: Partial<ScholarshipRaw>): ScholarshipRaw
         logo_dark: { src: faker.image.url() },
     },
     faqs: makeFaqs(),
+    what_you_will_learn: makeWhatYouWillLearn(),
     ...overrides,
 })
 
