@@ -102,7 +102,7 @@ describe('normalize', () => {
         expect(result.scholarship.faqs.items).toEqual(expectedItems)
     })
 
-    it('maps "What you will learn" items from raw title/data to title/description with id', () => {
+    it('maps "what_you_will_learn" items from raw to normalized structure', () => {
         const raw = makeScholarshipPageRaw()
 
         const result = normalizeScholarshipPage(raw)
@@ -114,5 +114,14 @@ describe('normalize', () => {
         }))
 
         expect(result.scholarship.whatYouWillLearn).toEqual(expectedItems)
+    })
+
+    it('generates numeric string IDs for "whatYouWillLearn" items', () => {
+        const raw = makeScholarshipPageRaw()
+        const result = normalizeScholarshipPage(raw)
+
+        result.scholarship.whatYouWillLearn.forEach((item) => {
+            expect(item.id).toMatch(/^\d+$/)
+        })
     })
 })

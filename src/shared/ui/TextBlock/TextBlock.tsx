@@ -8,7 +8,7 @@ interface TextBlockProps {
 
 export const TextBlock: React.FC<TextBlockProps> = ({ blocks, className }) => {
     return (
-        <div className={className}>
+        <div className={className} data-testid='text-block'>
             {blocks.map((block, index) => {
                 if (block.type === 'paragraph') {
                     return <p key={index}>{block.data}</p>
