@@ -26,9 +26,8 @@ const EDGE_TOLERANCE = 10
 
 const Slide: FC<SlideProps> = ({ item }) => (
     <article className={styles.slide}>
+        <h3 className={styles.slideTitle}>{item.title}</h3>
         <p className={styles.slideDescription}>{sliceBySentences(item.description, 2)}</p>
-
-        <span className={styles.slideTitle}>{item.title}</span>
     </article>
 )
 
