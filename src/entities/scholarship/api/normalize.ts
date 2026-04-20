@@ -1,4 +1,4 @@
-import type { ScholarshipPageRaw } from '../model/raw'
+import type { ScholarshipPageRaw } from '../model/scheme'
 import type { ScholarshipPage } from '../model/types'
 
 export const normalizeScholarshipPage = (raw: ScholarshipPageRaw): ScholarshipPage => {

@@ -1,7 +1,7 @@
 import { normalizeScholarshipPage } from './normalize'
 
 import type { AxiosInstance } from 'axios'
-import type { ScholarshipPageRaw } from '../model/raw'
+import type { ScholarshipPageRaw } from '../model/scheme'
 import type { ScholarshipPage } from '../model/types'
 
 export class ScholarshipService {
