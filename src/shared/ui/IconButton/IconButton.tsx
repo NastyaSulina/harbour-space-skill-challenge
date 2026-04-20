@@ -1,7 +1,9 @@
 import cn from 'clsx'
-import { memo, type ButtonHTMLAttributes, type Ref } from 'react'
+import { memo, type ButtonHTMLAttributes, type Ref, useEffect, useRef, useState } from 'react'
 
 import styles from './IconButton.module.css'
+
+type Motion = 'expand' | 'collapse' | null
 
 export type IconButtonProps = {
     ariaLabel: string
@@ -19,6 +21,18 @@ export const IconButton = memo(
         type = 'button',
         ...rest
     }: IconButtonProps) => {
+        const prevExpandedRef = useRef(isExpanded)
+        const [motion, setMotion] = useState<Motion>(null)
+
+        useEffect(() => {
+            if (prevExpandedRef.current === isExpanded) {
+                return
+            }
+
+            setMotion(isExpanded ? 'expand' : 'collapse')
+            prevExpandedRef.current = isExpanded
+        }, [isExpanded])
+
         const btnClass = cn(styles.root, { [styles.expanded!]: isExpanded }, className)
 
         return (
@@ -30,6 +44,7 @@ export const IconButton = memo(
                 onClick={onClick}
                 aria-label={ariaLabel}
                 aria-expanded={isExpanded}
+                data-motion={motion ?? undefined}
             >
                 <span className={styles.bg} aria-hidden='true' />
                 <span className={styles.icon} aria-hidden='true' />

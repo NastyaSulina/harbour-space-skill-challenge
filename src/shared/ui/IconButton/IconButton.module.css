@@ -45,14 +45,6 @@
     background: var(--color-primary);
 }
 
-.expanded .bg {
-    animation: bg-expand 0.4s ease forwards;
-}
-
-.root:not(.expanded) .bg {
-    animation: bg-collapse 0.4s ease forwards;
-}
-
 .icon {
     position: relative;
 
@@ -87,20 +79,52 @@
     transform: translate(-50%, -50%) rotate(0deg);
 }
 
+.expanded .bg {
+    inset: 2px;
+}
+
 .expanded .icon::before {
-    animation: line-rotate-forward 0.4s ease forwards;
+    transform: translate(-50%, -50%) rotate(-180deg);
 }
 
 .expanded .icon::after {
-    animation: cross-line-forward 0.4s ease forwards;
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.root[data-motion='expand'] .bg {
+    animation: bg-expand 0.4s ease forwards;
+}
+
+.root[data-motion='expand'] .icon::before {
+    animation: line-forward 0.4s ease forwards;
+}
+
+.root[data-motion='expand'] .icon::after {
+    animation: cross-forward 0.4s ease forwards;
+}
+
+.root[data-motion='collapse'] .bg {
+    animation: bg-collapse 0.4s ease forwards;
+}
+
+.root[data-motion='collapse'] .icon::before {
+    animation: line-backward 0.4s ease forwards;
+}
+
+.root[data-motion='collapse'] .icon::after {
+    animation: cross-backward 0.4s ease forwards;
+}
+
+.root:not(.expanded) .bg {
+    inset: 24px;
 }
 
 .root:not(.expanded) .icon::before {
-    animation: line-rotate-backward 0.4s ease forwards;
+    transform: translate(-50%, -50%) rotate(0deg);
 }
 
 .root:not(.expanded) .icon::after {
-    animation: cross-line-backward 0.4s ease forwards;
+    transform: translate(-50%, -50%) rotate(0deg);
 }
 
 @keyframes bg-expand {
@@ -123,7 +147,7 @@
     }
 }
 
-@keyframes line-rotate-forward {
+@keyframes line-forward {
     from {
         transform: translate(-50%, -50%) rotate(0deg);
     }
@@ -133,7 +157,7 @@
     }
 }
 
-@keyframes cross-line-forward {
+@keyframes cross-forward {
     from {
         transform: translate(-50%, -50%) rotate(0deg);
     }
@@ -143,7 +167,7 @@
     }
 }
 
-@keyframes line-rotate-backward {
+@keyframes line-backward {
     from {
         transform: translate(-50%, -50%) rotate(-180deg);
     }
@@ -153,7 +177,7 @@
     }
 }
 
-@keyframes cross-line-backward {
+@keyframes cross-backward {
     from {
         transform: translate(-50%, -50%) rotate(90deg);
     }
