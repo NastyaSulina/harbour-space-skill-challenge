@@ -125,9 +125,16 @@
     transition: color 0.2s ease;
 }
 
-.answer {
+.answerWrapper {
+    overflow: hidden;
     grid-column: 2 / 3;
 
+    max-height: 0;
+
+    transition: max-height 0.3s ease-out;
+}
+
+.answer {
     letter-spacing: -0.33px;
 
     font-size: 18px;
@@ -173,7 +180,7 @@
         display: none;
     }
 
-    .answer {
+    .answerWrapper {
         grid-column: 1 / 2;
     }
 }
