@@ -1,4 +1,3 @@
-export { LoadStatus } from './types'
 export type {
     TextBlockType,
     ScholarshipPage,

@@ -1,73 +1,18 @@
-import { useState, useMemo, useCallback, useRef, useEffect } from 'react'
+import { useState, useMemo, type FC } from 'react'
 
 import styles from './Faqs.module.css'
+import { FaqsItem } from './FagsItem'
 
-import type { Faqs as FaqsType, FaqItem } from '@entities/scholarship'
+import type { Faqs as FaqsType } from '@entities/scholarship'
 
-import { IconButton, Select, TextBlock } from '@shared/ui'
-
-import type { FC } from 'react'
-
-interface FaqItemProps {
-    item: FaqItem
-}
+import { Select } from '@shared/ui'
 
 const ALL_CATEGORIES = 'All'
 
-const FaqsItem: FC<FaqItemProps> = ({ item }) => {
-    const [isExpanded, setIsExpanded] = useState(false)
-    const [maxHeight, setMaxHeight] = useState('0')
-
-    const contentRef = useRef<HTMLDivElement>(null)
-
-    const handleToggle = useCallback(() => {
-        setIsExpanded((prev) => !prev)
-    }, [])
-
-    useEffect(() => {
-        if (isExpanded && contentRef.current) {
-            setMaxHeight(`${contentRef.current.scrollHeight}px`)
-        } else {
-            setMaxHeight('0')
-        }
-    }, [isExpanded])
-
-    return (
-        <li className={styles.item}>
-            <div
-                className={styles.itemHeader}
-                onClick={handleToggle}
-                role='button'
-                tabIndex={0}
-                onKeyDown={(e) => e.key === 'Enter' && handleToggle()}
-                aria-expanded={isExpanded}
-            >
-                <span className={styles.category}>{item.category}</span>
-                <span className={styles.question}>{item.question}</span>
-                <IconButton
-                    ariaLabel={isExpanded ? 'Collapse' : 'Expand'}
-                    isExpanded={isExpanded}
-                    onClick={(e) => {
-                        e.stopPropagation()
-                        handleToggle()
-                    }}
-                />
-            </div>
-
-            <div ref={contentRef} className={styles.answerWrapper} style={{ maxHeight }}>
-                <div className={styles.answer}>
-                    <TextBlock blocks={item.answer} />
-                </div>
-            </div>
-        </li>
-    )
-}
-interface FaqsProps {
-    faqs: FaqsType
-}
-
-export const Faqs: FC<FaqsProps> = ({ faqs }) => {
+export const Faqs: FC<{ faqs: FaqsType }> = ({ faqs }) => {
     const [selectedCategory, setSelectedCategory] = useState<string>(ALL_CATEGORIES)
+
+    const categoryOptions = useMemo(() => [ALL_CATEGORIES, ...faqs.categories], [faqs.categories])
 
     const filteredItems = useMemo(() => {
         if (selectedCategory === ALL_CATEGORIES) {
@@ -76,12 +21,6 @@ export const Faqs: FC<FaqsProps> = ({ faqs }) => {
 
         return faqs.items.filter((item) => item.category === selectedCategory)
     }, [faqs.items, selectedCategory])
-
-    const handleCategoryChange = useCallback((value: string) => {
-        setSelectedCategory(value)
-    }, [])
-
-    const categoryOptions = useMemo(() => [ALL_CATEGORIES, ...faqs.categories], [faqs.categories])
 
     return (
         <section className={styles.root}>
@@ -94,7 +33,7 @@ export const Faqs: FC<FaqsProps> = ({ faqs }) => {
                         <Select
                             options={categoryOptions}
                             selected={selectedCategory}
-                            onChange={handleCategoryChange}
+                            onChange={setSelectedCategory}
                         />
                     </div>
                 </div>

@@ -1,79 +1,65 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type FC } from 'react'
 import cn from 'clsx'
 
 import styles from './Slider.module.css'
+import { Slide } from './Slide'
 
 import type { LearnItem } from '@entities/scholarship'
 
-import { sliceBySentences, useIsMobile } from '@shared/lib'
-
-import type { FC } from 'react'
+import { useIsMobile } from '@shared/lib'
 
 interface SliderProps {
     items: LearnItem[]
     title?: string
 }
 
-interface SlideProps {
-    item: LearnItem
-}
-
-const CARD_WIDTH_DESKTOP = 320
-const CARD_WIDTH_MOBILE = 280
-const CARD_GAP_DESKTOP = 24
-const CARD_GAP_MOBILE = 16
-const EDGE_TOLERANCE = 10
-
-const Slide: FC<SlideProps> = ({ item }) => (
-    <article className={styles.slide}>
-        <h3 className={styles.slideTitle}>{item.title}</h3>
-        <p className={styles.slideDescription}>{sliceBySentences(item.description, 2)}</p>
-    </article>
-)
+const DESKTOP_CARD_WIDTH = 320
+const MOBILE_CARD_WIDTH = 280
+const DESKTOP_GAP = 24
+const MOBILE_GAP = 16
 
 export const Slider: FC<SliderProps> = ({ items, title }) => {
     const trackRef = useRef<HTMLDivElement>(null)
-
     const [canScrollPrev, setCanScrollPrev] = useState(false)
     const [canScrollNext, setCanScrollNext] = useState(false)
 
     const isMobile = useIsMobile()
+    const cardWidth = isMobile ? MOBILE_CARD_WIDTH : DESKTOP_CARD_WIDTH
+    const gap = isMobile ? MOBILE_GAP : DESKTOP_GAP
 
-    const cardWidth = isMobile ? CARD_WIDTH_MOBILE : CARD_WIDTH_DESKTOP
-    const cardGap = isMobile ? CARD_GAP_MOBILE : CARD_GAP_DESKTOP
-    const scrollStep = cardWidth + cardGap
-
-    const updateNavigation = () => {
+    const updateNavigationButtons = () => {
         const track = trackRef.current
         if (!track) return
 
-        const maxScrollLeft = track.scrollWidth - track.clientWidth
+        const isAtStart = track.scrollLeft <= 0
+        const isAtEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 1
 
-        setCanScrollPrev(track.scrollLeft > EDGE_TOLERANCE)
-        setCanScrollNext(track.scrollLeft < maxScrollLeft - EDGE_TOLERANCE)
+        setCanScrollPrev(!isAtStart)
+        setCanScrollNext(!isAtEnd)
     }
 
     useEffect(() => {
         const track = trackRef.current
         if (!track) return
 
-        updateNavigation()
+        updateNavigationButtons()
 
-        track.addEventListener('scroll', updateNavigation, { passive: true })
-        window.addEventListener('resize', updateNavigation)
+        track.addEventListener('scroll', updateNavigationButtons, { passive: true })
+        window.addEventListener('resize', updateNavigationButtons)
 
         return () => {
-            track.removeEventListener('scroll', updateNavigation)
-            window.removeEventListener('resize', updateNavigation)
+            track.removeEventListener('scroll', updateNavigationButtons)
+            window.removeEventListener('resize', updateNavigationButtons)
         }
-    }, [items.length, isMobile])
+    }, [])
 
-    const scrollByCard = (direction: 'prev' | 'next') => {
+    const scroll = (direction: 'prev' | 'next') => {
         const track = trackRef.current
         if (!track) return
 
+        const distance = cardWidth + gap
         track.scrollBy({
-            left: direction === 'next' ? scrollStep : -scrollStep,
+            left: direction === 'next' ? distance : -distance,
             behavior: 'smooth',
         })
     }
@@ -95,8 +81,8 @@ export const Slider: FC<SliderProps> = ({ items, title }) => {
             <div className={styles.navigation}>
                 <button
                     className={cn(styles.navButton, styles.navButtonPrev)}
-                    onClick={() => scrollByCard('prev')}
-                    aria-label='previous slide'
+                    onClick={() => scroll('prev')}
+                    aria-label='Previous slide'
                     disabled={!canScrollPrev}
                 >
                     ←
@@ -104,8 +90,8 @@ export const Slider: FC<SliderProps> = ({ items, title }) => {
 
                 <button
                     className={cn(styles.navButton, styles.navButtonNext)}
-                    onClick={() => scrollByCard('next')}
-                    aria-label='next slide'
+                    onClick={() => scroll('next')}
+                    aria-label='Next slide'
                     disabled={!canScrollNext}
                 >
                     →

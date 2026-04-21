@@ -1,12 +1,12 @@
-import { useCallback } from 'react'
+import { useCallback, type FC } from 'react'
 
 import styles from './ScholarshipPage.module.css'
 
 import { Faqs, Hero, Slider } from '@widgets/scholarship'
 
-import { LoadStatus, useScholarship } from '@entities/scholarship'
+import { useScholarship } from '@entities/scholarship'
 
-import type { FC } from 'react'
+import { LoadStatus } from '@shared/types'
 
 interface ScholarshipPageProps {
     slug: string

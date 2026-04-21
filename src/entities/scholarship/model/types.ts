@@ -1,10 +1,3 @@
-export enum LoadStatus {
-    Initial = 'initial',
-    Loading = 'loading',
-    Success = 'success',
-    Error = 'error',
-}
-
 export type TextBlockType = { type: 'paragraph'; data: string } | { type: 'list'; data: string[] }
 
 export interface ScholarshipPage {

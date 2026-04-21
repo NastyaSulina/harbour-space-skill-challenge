@@ -4,22 +4,10 @@ import cn from 'clsx'
 import styles from './Select.module.css'
 
 import { useOutsideClick } from '@shared/lib'
+import { KeyboardKeys } from '@shared/types'
 
 import type { KeyboardEvent } from 'react'
-
-export type Option = {
-    title: string
-    value: string
-}
-
-type SelectProps = {
-    options: Option[] | string[]
-    selected: string | null
-    placeholder?: string
-    onChange: (value: string) => void
-    onClose?: () => void
-    hasError?: boolean
-}
+import type { SelectProps, Option } from './Select.types'
 
 export const Select = ({
     options,
@@ -38,6 +26,8 @@ export const Select = ({
         onClose?.()
     }, [onClose])
 
+    const ref = useOutsideClick(close)
+
     const handleOptionClick = useCallback(
         (value: string) => {
             onChange(value)
@@ -48,17 +38,16 @@ export const Select = ({
 
     const handleKeyDown = useCallback(
         (e: KeyboardEvent, action: () => void) => {
-            if (e.key === 'Enter' || e.key === ' ') {
+            if (e.key === KeyboardKeys.Enter || e.key === KeyboardKeys.Space) {
                 e.preventDefault()
+
                 action()
-            } else if (e.key === 'Escape') {
+            } else if (e.key === KeyboardKeys.Escape) {
                 close()
             }
         },
         [close],
     )
-
-    const ref = useOutsideClick(close)
 
     const normalizedOptions: Option[] = options.map((opt) =>
         typeof opt === 'string' ? { value: opt, title: opt } : opt,
@@ -84,6 +73,7 @@ export const Select = ({
                 <div className={styles.optionsWrapper} role='listbox' tabIndex={-1}>
                     {normalizedOptions.map((option) => {
                         const isSelected = selected === option.value
+
                         return (
                             <button
                                 key={option.value}
