@@ -12,7 +12,7 @@ const FAQ_CATEGORIES = ['Application process', 'Program conditions', 'Apprentice
 
 const makeTextBlock = (): TextBlockType =>
     ({
-        type: 'paragraph',
+        type: 'paragraph', // TODO: test list normalization too
         data: faker.lorem.paragraph(),
     }) as TextBlockType
 

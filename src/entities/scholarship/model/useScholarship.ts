@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 
-import { LoadStatus, type ScholarshipPage } from './types'
-
 import { ScholarshipService } from '../api'
 
 import { apiClient } from '@shared/api'
+import { LoadStatus } from '@shared/types'
+
+import type { ScholarshipPage } from './types'
 
 const scholarshipService = new ScholarshipService(apiClient)
 

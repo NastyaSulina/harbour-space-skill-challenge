@@ -1,10 +1,11 @@
 import { renderHook, waitFor } from '@testing-library/react'
 
 import { useScholarship } from './useScholarship'
-import { LoadStatus } from './types'
 
 import { normalizeScholarshipPage } from '../api/normalize'
 import { makeScholarshipPageRaw } from '../__testing__'
+
+import { LoadStatus } from '@shared/types'
 
 const { getPageMock } = vi.hoisted(() => ({
     getPageMock: vi.fn(),
